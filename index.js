@@ -11,6 +11,8 @@ var credentials = {key: privateKey, cert: certificate};
 var express = require('express');
 var app = express();
 
+
+var usuarioLogueado = '';
 // your express configuration here
 
 //var httpServer = http.createServer(app);
@@ -33,7 +35,14 @@ app.get(/^(.+)$/, function(req,res,next){
 		case '/registroRemoto':
 			res.sendFile(__dirname + '/registroRemoto.html');
 			break;
-		case '/guardarRegistro':
+		case '/login':
+			var code = qr.image("https://10.105.231.63:8443/loginRemoto", {type:'svg'});
+			res.type('svg');
+			code.pipe(res);
+			break;
+		case '/loginRemoto':
+			res.sendFile(__dirname + '/loginRemoto.html');
+			break;
 		default:
 			res.sendFile(__dirname + req.params[0]);		
 			break;
@@ -43,8 +52,14 @@ app.get(/^(.+)$/, function(req,res,next){
 app.post(/^(.+)$/, function(req,res,next){
 	switch(req.params[0]){
 		case '/guardarRegistro':
+			usuarioLogueado = req.body.id;
 			console.log(req.body.id);
 			break;	
+		case '/iniciarSesion':
+			var id = req.body.id;
+			if(usuarioLogueado == id){
+				//enviar notificación al browser para que vea que el usuario se logueo
+			}	
 		default:
 			break;
 	}
