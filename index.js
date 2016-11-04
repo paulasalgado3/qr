@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var credentials = {key: privateKey, cert: certificate};
 var express = require('express');
 var app = express();
-
+var websocket = require('ws').Server;
 
 var usuarioLogueado = '';
 // your express configuration here
@@ -20,10 +20,32 @@ var httpsServer = https.createServer(credentials, app);
 
 //httpServer.listen(8080);
 httpsServer.listen(8443);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
         extended: true
         }));
+
+var wss = new websocket ( { 
+	server: httpsServer, 
+});
+
+function originIsAllowed(origin) {
+  // put logic here to detect whether the specified origin is allowed. 
+  return true;
+}
+
+wss.on('connection', function (wss){
+	//enviar algo
+	wss.send('prueba');
+
+});
+
+function usuLogueado(){
+	wss.clients.forEach(function each(client){
+	client.send("usuario logueado");
+	});
+}
 
 app.get(/^(.+)$/, function(req,res,next){
 	switch(req.params[0]){
@@ -58,7 +80,8 @@ app.post(/^(.+)$/, function(req,res,next){
 		case '/iniciarSesion':
 			var id = req.body.id;
 			if(usuarioLogueado == id){
-				//enviar notificación al browser para que vea que el usuario se logueo
+			//enviar notificación al browser para que vea que el usuario se logueo
+			usuLogueado();
 			}	
 		default:
 			break;
