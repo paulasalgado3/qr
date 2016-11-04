@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "fingerprintjs2": "^1.4.1",
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "https": "^1.0.0",
