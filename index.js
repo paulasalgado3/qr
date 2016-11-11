@@ -13,7 +13,7 @@ var app = express();
 var websocket = require('ws').Server;
 
 var usuarioLogueado = '';
-var HOSTIP = process.env.HOSTIP;
+var HOSTIP = process.env.OPENSHIFT_NODEJS_IP;
 // your express configuration here
 
 //var httpServer = http.createServer(app);
