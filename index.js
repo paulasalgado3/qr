@@ -68,6 +68,12 @@ app.get(/^(.+)$/, function(req,res,next){
 "<script src='fingerprint2.js'></script><script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script><script>var fp = new Fingerprint2();var xhr = new XMLHttpRequest();fp.get(function(result, components){        var usuario = {                id: result        };        enviarPOST(JSON.stringify(usuario));        document.body.innerHTML = 'Registro correcto';        });function enviarPOST(json){        $.ajax({                url: 'https://" +HOSTIP +"/guardarRegistro',                type: 'POST',                dataType: 'json',                data: json,                contentType: 'application/json; charset=utf-8',                success: function (data) {                },                error: function (result) {                }        });}</script>"
 ;
 			res.send(body);
+			break;
+		case '/inicial':
+			var body=
+"var connection = new WebSocket('wss://"+HOSTIP+":"+ PUERTO +"/' , ['soap','xmpp']);connection.onmessage = function (e) {        if (e.data == 'usuario logueado'){                window.location = 'http://www.google.com';        }  console.log('Server: ' + e.data);};";
+			res.send(body);
+			break;
 		default:
 			res.sendFile(__dirname + req.params[0]);		
 			break;
