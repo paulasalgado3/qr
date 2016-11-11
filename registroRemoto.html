@@ -5,7 +5,8 @@
 <script>
 var fp = new Fingerprint2();
 var xhr = new XMLHttpRequest();
-var IP = process.env.OPENSHIFT_NODEJS_IP;
+var IP = process.env.FQDN;
+var PUERTO = process.env.PUERTO;
 fp.get(function(result, components){
 	var usuario = {
         	id: result
@@ -18,7 +19,7 @@ fp.get(function(result, components){
 function enviarPOST(json){
 
 	$.ajax({
-    		url: 'https://'+ IP + ':8443/guardarRegistro',
+    		url: 'https://'+ IP + ":" + PUERTO + '/guardarRegistro',
 	    	type: 'POST',
     		dataType: 'json',
     		data: json,

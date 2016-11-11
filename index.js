@@ -13,14 +13,15 @@ var app = express();
 var websocket = require('ws').Server;
 
 var usuarioLogueado = '';
-var HOSTIP = process.env.OPENSHIFT_NODEJS_IP;
+var HOSTIP = process.env.FQDN;
+var PUERTO = process.env.PUERTO;
 // your express configuration here
 
 //var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
 //httpServer.listen(8080);
-httpsServer.listen(8080);
+httpsServer.listen(PUERTO);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
         extended: true
@@ -50,7 +51,7 @@ function usuLogueado(){
 app.get(/^(.+)$/, function(req,res,next){
 	switch(req.params[0]){
 		case '/registro':
-			var code = qr.image("https://"+ HOSTIP + ":8443/registroRemoto", { type: 'svg' });
+			var code = qr.image("https://"+ HOSTIP +":"+  PUERTO + "/registroRemoto", { type: 'svg' });
 		        res.type('svg');
         		code.pipe(res);
 			break;
@@ -58,7 +59,7 @@ app.get(/^(.+)$/, function(req,res,next){
 			res.sendFile(__dirname + '/registroRemoto.html');
 			break;
 		case '/login':
-			var code = qr.image("https://"+ HOSTIP +":8443/loginRemoto", {type:'svg'});
+			var code = qr.image("https://"+ HOSTIP + ":" + PUERTO + "/loginRemoto", {type:'svg'});
 			res.type('svg');
 			code.pipe(res);
 			break;
