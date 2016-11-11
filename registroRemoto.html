@@ -5,6 +5,7 @@
 <script>
 var fp = new Fingerprint2();
 var xhr = new XMLHttpRequest();
+var IP = HOSTIP;
 fp.get(function(result, components){
 	var usuario = {
         	id: result
@@ -17,7 +18,7 @@ fp.get(function(result, components){
 function enviarPOST(json){
 
 	$.ajax({
-    		url: 'https://10.105.231.63:8443/guardarRegistro',
+    		url: 'https://'+ IP + ':8443/guardarRegistro',
 	    	type: 'POST',
     		dataType: 'json',
     		data: json,
