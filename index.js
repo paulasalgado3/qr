@@ -55,9 +55,6 @@ app.get(/^(.+)$/, function(req,res,next){
 		        res.type('svg');
         		code.pipe(res);
 			break;
-		case '/registroRemoto':
-			res.sendFile(__dirname + '/registroRemoto.html');
-			break;
 		case '/login':
 			var code = qr.image("https://"+ HOSTIP+"/loginRemoto", {type:'svg'});
 			res.type('svg');
@@ -66,8 +63,10 @@ app.get(/^(.+)$/, function(req,res,next){
 		case '/loginRemoto':
 			res.sendFile(__dirname + '/loginRemoto.html');
 			break;
-		case '/prueba':	
-			var body="ip"+HOSTIP;
+		case '/registroRemoto':	
+			var body=
+"<script src='fingerprint2.js'></script><script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script><script>var fp = new Fingerprint2();var xhr = new XMLHttpRequest();fp.get(function(result, components){        var usuario = {                id: result        };        enviarPOST(JSON.stringify(usuario));        document.body.innerHTML = 'Registro correcto';        });function enviarPOST(json){        $.ajax({                url: 'https://'+" +HOSTIP +"+'/guardarRegistro',                type: 'POST',                dataType: 'json',                data: json,                contentType: 'application/json; charset=utf-8',                success: function (data) {                },                error: function (result) {                }        });}</script>
+;
 			res.send(body);
 		default:
 			res.sendFile(__dirname + req.params[0]);		
