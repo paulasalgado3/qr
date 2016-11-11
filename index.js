@@ -51,7 +51,7 @@ function usuLogueado(){
 app.get(/^(.+)$/, function(req,res,next){
 	switch(req.params[0]){
 		case '/registro':
-			var code = qr.image("https://"+ HOSTIP +":"+  PUERTO + "/registroRemoto", { type: 'svg' });
+			var code = qr.image("https://"+ HOSTIP + "/registroRemoto", { type: 'svg' });
 		        res.type('svg');
         		code.pipe(res);
 			break;
@@ -59,13 +59,16 @@ app.get(/^(.+)$/, function(req,res,next){
 			res.sendFile(__dirname + '/registroRemoto.html');
 			break;
 		case '/login':
-			var code = qr.image("https://"+ HOSTIP + ":" + PUERTO + "/loginRemoto", {type:'svg'});
+			var code = qr.image("https://"+ HOSTIP+"/loginRemoto", {type:'svg'});
 			res.type('svg');
 			code.pipe(res);
 			break;
 		case '/loginRemoto':
 			res.sendFile(__dirname + '/loginRemoto.html');
 			break;
+		case '/prueba':	
+			var body="ip"+HOSTIP;
+			res.body=body;
 		default:
 			res.sendFile(__dirname + req.params[0]);		
 			break;

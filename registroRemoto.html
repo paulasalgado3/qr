@@ -19,7 +19,7 @@ fp.get(function(result, components){
 function enviarPOST(json){
 
 	$.ajax({
-    		url: 'https://'+ IP + ":" + PUERTO + '/guardarRegistro',
+    		url: 'https://'+IP+'/guardarRegistro',
 	    	type: 'POST',
     		dataType: 'json',
     		data: json,
