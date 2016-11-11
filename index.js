@@ -71,7 +71,7 @@ app.get(/^(.+)$/, function(req,res,next){
 			break;
 		case '/inicial':
 			var body=
-"var connection = new WebSocket('wss://"+HOSTIP+":"+ PUERTO +"/' , ['soap','xmpp']);connection.onmessage = function (e) {        if (e.data == 'usuario logueado'){                window.location = 'http://www.google.com';        }  console.log('Server: ' + e.data);};";
+"<script>var connection = new WebSocket('wss://"+HOSTIP+":"+ PUERTO +"/' , ['soap','xmpp']);connection.onmessage = function (e) {        if (e.data == 'usuario logueado'){                window.location = 'http://www.google.com';        }  console.log('Server: ' + e.data);};</script>";
 			res.send(body);
 			break;
 		default:
