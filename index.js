@@ -68,7 +68,7 @@ app.get(/^(.+)$/, function(req,res,next){
 			break;
 		case '/prueba':	
 			var body="ip"+HOSTIP;
-			res.send=body;
+			res.send(body);
 		default:
 			res.sendFile(__dirname + req.params[0]);		
 			break;
