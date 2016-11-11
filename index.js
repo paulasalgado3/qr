@@ -20,8 +20,7 @@ var HOSTIP = process.env.OPENSHIFT_NODEJS_IP;
 var httpsServer = https.createServer(credentials, app);
 
 //httpServer.listen(8080);
-httpsServer.listen(process.env.OPENSHIFT_NODEJS_PORT);
-console.log(process.env.OPENSHIFT_NODEJS_PORT);
+httpsServer.listen(8080);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
         extended: true
